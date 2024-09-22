@@ -2,9 +2,22 @@
   "name": "candl",
   "license": "MIT",
   "private": false,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "index.js",
   "types": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thp-software/candl.git"
+  },
+  "homepage": "https://github.com/thp-software/candl#readme",
+  "keywords": [
+    "candlestick",
+    "chart",
+    "candle",
+    "canvas",
+    "prototype",
+    "frontend"
+  ],
   "dependencies": {
     "dayjs": "^1.11.13"
   }
