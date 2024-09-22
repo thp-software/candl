@@ -1,5 +1,5 @@
 <p align="center">
-  <img  src="../../assets/candl_logo.png#center">
+  <img  src="https://github.com/thp-software/candl/blob/master/assets/candl_logo.png#center">
   <h3 align="center"><i> Your Simple Candlestick Chart Lib </i></h3>
 </p>
 <h3 align="center">🚧 This is a prototype. Do not use it in production before v1.0.0. 🚧</h3>
