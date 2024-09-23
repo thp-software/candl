@@ -2,18 +2,9 @@ import { CandlTimeFrame } from "../enums/CandlTimeFrame";
 
 export interface CandlOption {
   timeFrame: CandlTimeFrame;
+  show: CandlOptionShow;
+  general: CandlOptionGeneral;
   inputs: CandlOptionInputs;
-  showCross: boolean;
-  showLineCursor: boolean;
-  showGridX: boolean;
-  showGridY: boolean;
-  showYAxis: boolean;
-  showPriceLine: boolean;
-  showVolume: boolean;
-  showXLabels: boolean;
-  showHover: boolean;
-  showHoverInfos: boolean;
-  backgroundColor: string;
   grid: CandlOptionGrid;
   xAxis: CandlOptionXAxisLabels;
   yAxis: CandlOptionYAxis;
@@ -128,6 +119,23 @@ export interface CandlOptionLineCursor {
   fillColor: string;
   radius: number;
   ringThickness: number;
+}
+
+export interface CandlOptionGeneral {
+  backgroundColor: string;
+}
+
+export interface CandlOptionShow {
+  cross: boolean;
+  lineCursor: boolean;
+  gridX: boolean;
+  gridY: boolean;
+  yAxis: boolean;
+  priceLine: boolean;
+  volume: boolean;
+  xLabels: boolean;
+  hover: boolean;
+  hoverInfos: boolean;
 }
 
 export type DeepPartial<T> = {

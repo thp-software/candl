@@ -7,6 +7,7 @@ import {
   CandlOption,
   CandlOptionCross,
   CandlOptionCursor,
+  CandlOptionGeneral,
   CandlOptionGrid,
   CandlOptionInputs,
   CandlOptionPriceLine,
@@ -14,6 +15,7 @@ import {
   CandlOptionRenderCandle,
   CandlOptionRenderCommon,
   CandlOptionRenderLine,
+  CandlOptionShow,
   CandlOptionXAxisLabels,
   CandlOptionYAxis,
   DeepPartial,
@@ -333,14 +335,14 @@ export class Candl {
         this.gridCanvasContext,
         { x: 0, y: 0 },
         { x: this.gridCanvas.width, y: this.gridCanvas.height },
-        this.options.backgroundColor,
+        this.options.general.backgroundColor,
         this.canvasDensity
       );
 
-      if (this.options.showGridX) {
+      if (this.options.show.gridX) {
         this.updateGridX();
       }
-      if (this.options.showGridY) {
+      if (this.options.show.gridY) {
         this.updateGridY();
       }
     }
@@ -378,15 +380,15 @@ export class Candl {
         this.updateLineCursor();
       }
 
-      if (this.options.showYAxis) {
+      if (this.options.show.yAxis) {
         this.updateYAxis();
       }
 
-      if (this.options.showPriceLine) {
+      if (this.options.show.priceLine) {
         this.updatePriceLine();
       }
 
-      if (this.options.showCross) {
+      if (this.options.show.cross) {
         this.updateCross();
       }
 
@@ -395,7 +397,7 @@ export class Candl {
       // }
 
       if (
-        this.options.showHoverInfos &&
+        this.options.show.hoverInfos &&
         this.hoveredIndex >= 0 &&
         this.hoveredIndex < activeSerie.getDataCount()
       ) {
@@ -510,7 +512,7 @@ export class Candl {
             x + this.candleWidth < 0 ||
             x >
               this.gridCanvas.width -
-                (this.options.showYAxis
+                (this.options.show.yAxis
                   ? this.options.yAxis.width * this.canvasDensity
                   : 0)
           )
@@ -1354,15 +1356,15 @@ export class Candl {
       let x = this.chartCanvas.width / this.canvasDensity;
       let y = this.chartCanvas.height / this.canvasDensity;
 
-      if (this.options.showYAxis) {
+      if (this.options.show.yAxis) {
         x -= this.options.yAxis.width * this.canvasDensity;
       }
 
-      if (this.options.showVolume) {
+      if (this.options.show.volume) {
         y -= this.options.volume.height * this.canvasDensity;
       }
 
-      if (this.options.showXLabels) {
+      if (this.options.show.xLabels) {
         y -= this.options.xAxis.height * this.canvasDensity;
       }
 
@@ -1489,6 +1491,36 @@ export class Candl {
       ...options,
     };
     this.updateInputCanvas();
+  }
+
+  /**
+   * Set general options
+   * @param {CandlOptionGeneral} options
+   */
+  public setOptionsGeneral(options: DeepPartial<CandlOptionGeneral>): void {
+    this.options.general = {
+      ...this.options.general,
+      ...options,
+    };
+  }
+
+  /**
+   * Set elements to show
+   * @param {CandlOptionShow} options
+   */
+  public setOptionsShow(options: DeepPartial<CandlOptionShow>): void {
+    this.options.show = {
+      ...this.options.show,
+      ...options,
+    };
+  }
+
+  /**
+   * Set options (no optionals)
+   * @param {CandlOption} options
+   */
+  public setOptions(options: CandlOption): void {
+    this.options = options;
   }
 
   /**

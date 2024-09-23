@@ -27,7 +27,7 @@ const CandlWrapper: React.FC = () => {
         CandlMock.generateMockData(CandlTimeFrame.Time1Minute, 10000)
       );
 
-      // Add default 1M base views to this serie
+      // Add default 1M base views to the serie
       mySerie.setViews(get1MBaseViews());
 
       // Add serie to Candl

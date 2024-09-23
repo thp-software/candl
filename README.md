@@ -32,9 +32,6 @@
 Very basic example of a seeded chart in React with TypeScript.
 
 ```ts
-import { useEffect, useRef } from "react";
-import { Candl, CandlMock, CandlSerie, CandlTimeFrame } from "candl";
-
 const CandlWrapper: React.FC = () => {
   // Reference to the container of the chart
   const containerRef = useRef<HTMLDivElement | null>(null);
