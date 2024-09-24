@@ -4,6 +4,8 @@
 </p>
 <h3 align="center">🚧 This is a prototype. Do not use it in production before v1.0.0. 🚧</h3>
 
+<h3 align="center"><a href="https://thp-software.github.io/candl/">Full Documentation</a></h3>
+
 <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square" alt="License">
 
 ## What is Candl ?
@@ -32,6 +34,15 @@
 Very basic example of a seeded chart in React with TypeScript.
 
 ```ts
+import { useEffect, useRef } from "react";
+import {
+  Candl,
+  CandlMock,
+  CandlSerie,
+  CandlTimeFrame,
+  get1MBaseViews,
+} from "candl";
+
 const CandlWrapper: React.FC = () => {
   // Reference to the container of the chart
   const containerRef = useRef<HTMLDivElement | null>(null);
