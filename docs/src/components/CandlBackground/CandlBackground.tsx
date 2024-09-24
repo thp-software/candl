@@ -41,7 +41,7 @@ const CandlWrapper: React.FC = () => {
         hoverInfos: false,
       },
       general: {
-        backgroundColor: "#fff",
+        backgroundColor: "#f9f9f9",
       },
       commonRender: {
         initialShadowWidth: 2,
@@ -296,7 +296,7 @@ const CandlWrapper: React.FC = () => {
           while (needToFeed) {
             i += 16;
             j += 16;
-            if (i >= 2000) {
+            if (i >= 1000) {
               i = 0;
               lastCandle = CandlMock.generateMockDataOneByOne(
                 CandlTimeFrame.Time1Minute,

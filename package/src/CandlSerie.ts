@@ -167,14 +167,6 @@ export class CandlSerie {
   }
 
   /**
-   * Set the view index
-   * @param {number} index
-   */
-  public setViewIndex(index: number): void {
-    this.viewIndex = index;
-  }
-
-  /**
    * Get the id of the serie
    * @returns {CandlTimeFrame}
    */

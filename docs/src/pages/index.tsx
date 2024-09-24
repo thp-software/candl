@@ -31,7 +31,6 @@ function HomepageHeader() {
           height: "100%",
           position: "absolute",
           zIndex: 5,
-          backgroundColor: colorMode === "dark" ? "#00000090" : "#ffffff90",
         }}
       />
       <CandlWrapper />
@@ -54,7 +53,7 @@ function HomepageHeader() {
           src="img/candl_logo.png"
           width={"100%"}
           alt="Candl"
-          style={{ marginBottom: "4rem", opacity: 0.75 }}
+          style={{ marginBottom: "4rem", opacity: 0.9 }}
         />
         <div className={styles.buttons}>
           <Link

@@ -1,7 +1,10 @@
-/**
- * Enum of candle duration.
- * Time for each candle on the chart.
- */
+---
+sidebar_position: 7
+---
+
+# Candl TimeFrame
+
+```ts
 export enum CandlTimeFrame {
   // Candle of 1 minute
   Time1Minute = 0,
@@ -28,3 +31,4 @@ export enum CandlTimeFrame {
   // Candle of 1 year
   Time1Year = 11,
 }
+```

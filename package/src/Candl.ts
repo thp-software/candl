@@ -1171,13 +1171,13 @@ export class Candl {
 
       const previousZoom = activeSerie.getActiveView().zoomFactor;
 
-      activeSerie.setViewIndex(
+      activeSerie.setActiveView(
         activeSerie.getViewIndex() + (event.deltaY < 0 ? 1 : -1)
       );
-      activeSerie.setViewIndex(
+      activeSerie.setActiveView(
         Math.min(activeSerie.getViewIndex(), activeSerie.getViewsCount() - 1)
       );
-      activeSerie.setViewIndex(Math.max(activeSerie.getViewIndex(), 0));
+      activeSerie.setActiveView(Math.max(activeSerie.getViewIndex(), 0));
 
       if (this.options.inputs.zoomAtCursor) {
         const newZoom = activeSerie.getActiveView().zoomFactor;

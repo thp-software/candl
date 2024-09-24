@@ -14,7 +14,7 @@ const candl: Candl = new Candl(container);
 
 Candl handle the creation, update and delete of the canvases. You just need to provide a parent div.
 
-### CandlOption
+### Candl Option
 
 The behavior of Candl is define with `CandlOption`.
 
@@ -26,7 +26,7 @@ See more about [CandlOption](./candl_options.md).
 
 ### TimeFrame
 
-`CandlTimeFrame` is the unit of time of the chart, it define the time for each candle.
+[CandlTimeFrame](./candl_timeframe.md) is the unit of time of the chart, it define the duration of each candle.
 
 For example :
 
@@ -36,13 +36,19 @@ CandlTimeFrame.Time5Minutes
 CandlTimeFrame.Time1Hour
 ```
 
-You can set the TimeFrame of the chart with `setActiveTimeFrame()`
+```ts
+// Return the active time frame of the chart
+getActiveTimeFrame(): CandlTimeFrame
+```
+
+```ts
+// Set the active time frame of the chart
+setActiveTimeFrame(type: CandlTimeFrame): void
+```
 
 ### Candl Serie
 
-Candl Serie is an object that hold the data and the views for one TimeFrame.
-
-It contain an array of CandlData and an Array of CandlView.
+Candl Serie is an object that hold the data and the views for a specific TimeFrame.
 
 ```ts
 // To get the serie which is currently rendered on the chart
@@ -68,6 +74,49 @@ See more about [CandlSerie](./candl_serie.md).
 
 ### Offset
 
+`offset` is a [CandlVector2](./candl_vector2.md) of the current position of the chart.
+
+```ts
+// Get the offset of the canvas (from the bottom left of the chart)
+getOffset(): CandlVector2
+```
+
+```ts
+// Get the offset of the last candle in order to have it on the right of the chart
+getLastCandleOffset(): number
+```
+
+```ts
+// Set the offset of the canvas (from the bottom left of the chart)
+setOffset(offset: CandlVector2): void
+```
+
+### Infos
+
+Informations about the chart
+
+```ts
+// Get the number of candle currently drawn
+getDrawnCandleCount(): number
+```
+
+```ts
+// Get the number of candle stored in a specific serie
+getCandleCount(type: CandlTimeFrame): number
+```
+
+```ts
+// Get the index of the hovered candle
+getIndexOfHoveredCandle(type: CandlTimeFrame): number
+```
+
+```ts
+// Get the data of the hovered candle
+getDataOfHoveredCandle(type: CandlTimeFrame): CandlData | null
+```
+
+<!-- ### Offset
+
 Offset is the position of the chart.
 
 More precisly, the offset is the bottom left position of the chart.
@@ -90,109 +139,4 @@ In order to improve visual, the canvases resolution are set to an higher definit
 
 It allow to get a render with better definition.
 
-This parameter is `canvasDensity`
-
-<!-- Here you can see the default CandlOption :
-
-```ts
-{
-    inputs: {
-      handleInput: true,
-      zoomAtCursor: true,
-    },
-    timeFrame: CandlTimeFrame.Time1Minute,
-    show: {
-      cross: true,
-      lineCursor: true,
-      priceLine: true,
-      volume: true,
-      gridY: true,
-      gridX: true,
-      yAxis: true,
-      xLabels: true,
-      hover: true,
-      hoverInfos: true,
-    },
-    general: {
-      backgroundColor: "#000A1D",
-    },
-    commonRender: {
-      initialShadowWidth: 2,
-      shadowWidthMin: 0.5,
-      shadowWidthMax: 3,
-      initialWidth: 10,
-      initialSpacing: 5,
-    },
-    candleRender: {
-      bearish: {
-        color: "#EF5F62",
-        shadowColor: "#933b3d",
-      },
-      bullish: { color: "#19AD9F", shadowColor: "#137c71" },
-    },
-    lineRender: {
-      color: "#f0f",
-      thickness: 2,
-    },
-    areaRender: {
-      line: {
-        color: "#f0f",
-        thickness: 1,
-      },
-      area: {
-        topColor: "#640064cc",
-        bottomColor: "#00006433",
-      },
-    },
-    volume: {
-      bearish: { color: "#EF5F62a0" },
-      bullish: { color: "#19AD9Fa0" },
-      height: 100,
-    },
-    grid: {
-      gridMajorX: {
-        color: "#192231a0",
-        thickness: 2,
-      },
-      gridMinorX: {
-        color: "#192231a0",
-        thickness: 1,
-      },
-      gridMajorY: {
-        color: "#192231a0",
-        thickness: 2,
-      },
-    },
-    yAxis: {
-      backgroundColor: "#00102dcc",
-      labelFont: "Arial",
-      labelFontSize: 14,
-      labelColor: "#eee",
-      width: 120,
-    },
-    xAxis: {
-      height: 30,
-    },
-    priceLine: {
-      color: "#ffffff50",
-      labelBackgroundColor: "#2f599d",
-      labelFont: "Arial",
-      labelFontSize: 12,
-      labelColor: "#fff",
-    },
-    cross: {
-      color: "#fff",
-      width: 0.5,
-      dotted: {
-        value: [7, 10],
-      },
-    },
-    lineCursor: {
-      ringColor: "white",
-      fillColor: "#ffffff50",
-      ringThickness: 1,
-      radius: 10,
-    },
-    cursor: { style: "crosshair" },
-}
-``` -->
+This parameter is `canvasDensity` -->

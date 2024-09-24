@@ -4,46 +4,15 @@ sidebar_position: 1
 
 # Quick Start
 
-## Installation
+### Installation
 
 ```ts
 npm i candl
 ```
 
-## Explanation
+### Code
 
 In this example, we will see how to setup a basic Candl chart.
-
-It will introduce you to some concepts of the library.
-
-### CandlSerie
-
-We will first create a Serie with a TimeFrame (1M in this case) and a Symbol.
-The symbol is optional and is the abbrevation of a company/index stock.
-
-A CandlSerie also contain an array of CandlData and an array of CandlView.
-
-#### CandlData
-
-A CandlData is a simple interface that define all the data needed for a one candle.
-
-#### CandlView
-
-A CandlView define the way to render the chart on the screen.
-It contain (among others) a zoom factor and a type of render (Candle, Line, Area, ...).
-You typically iterate through the array of CandlView with Mouse Wheel.
-
-### Update
-
-Update (or Redrawing) the chart is handle by the library based on inputs event.
-
-But not when a serie data or views are set.
-
-So in this case we need to forceUpdate.
-
-`forceUpdate()` Redraw every elements of the chart.
-
-## Code
 
 This is a React Component using Candl.
 
@@ -114,3 +83,32 @@ const CandlWrapper: React.FC = () => {
 };
 export default CandlWrapper;
 ```
+
+<!-- It will introduce you to some concepts of the library.
+
+### CandlSerie
+
+We will first create a Serie with a TimeFrame (1M in this case) and a Symbol.
+The symbol is optional and is the abbrevation of a company/index stock.
+
+A CandlSerie also contain an array of CandlData and an array of CandlView.
+
+#### CandlData
+
+A CandlData is a simple interface that define all the data needed for a one candle.
+
+#### CandlView
+
+A CandlView define the way to render the chart on the screen.
+It contain (among others) a zoom factor and a type of render (Candle, Line, Area, ...).
+You typically iterate through the array of CandlView with Mouse Wheel.
+
+### Update
+
+Update (or Redrawing) the chart is handle by the library based on inputs event.
+
+But not when a serie data or views are set.
+
+So in this case we need to forceUpdate.
+
+`forceUpdate()` Redraw every elements of the chart. -->

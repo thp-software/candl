@@ -4,113 +4,114 @@ sidebar_position: 4
 
 # Candl Serie
 
-## Installation
+A CandlSerie define the data for a specific [CandlTimeFrame](./candl_timeframe.md).
+
+You can create a CandlSerie like this :
 
 ```ts
-npm i candl
+// It will create a serie for 1 minute long candles.
+const mySerie: CandlSerie = new CandlSerie(CandlTimeFrame.Time1Minute);
+
+// With optional symbol.
+const mySerie: CandlSerie = new CandlSerie(CandlTimeFrame.Time1Minute, "DJI");
 ```
 
-## Explanation
+## Data
 
-In this example, we will see how to setup a basic Candl chart.
-
-It will introduce you to some concepts of the library.
-
-### CandlSerie
-
-We will first create a Serie with a TimeFrame (1M in this case) and a Symbol.
-The symbol is optional and is the abbrevation of a company/index stock.
-
-A CandlSerie also contain an array of CandlData and an array of CandlView.
-
-#### CandlData
-
-A CandlData is a simple interface that define all the data needed for a one candle.
-
-#### CandlView
-
-A CandlView define the way to render the chart on the screen.
-It contain (among others) a zoom factor and a type of render (Candle, Line, Area, ...).
-You typically iterate through the array of CandlView with Mouse Wheel.
-
-### Update
-
-Update (or Redrawing) the chart is handle by the library based on inputs event.
-
-But not when a serie data or views are set.
-
-So in this case we need to forceUpdate.
-
-`forceUpdate()` Redraw every elements of the chart.
-
-## Code
-
-This is a React Component using Candl.
+The data are stored in a [CandlData](./candl_data.md) array.
 
 ```ts
-import { useEffect, useRef } from "react";
-import {
-  Candl,
-  CandlMock,
-  CandlSerie,
-  CandlTimeFrame,
-  get1MBaseViews,
-} from "candl";
+// Set the data of the serie
+setData(data: CandlData[]): void
+```
 
-const CandlWrapper: React.FC = () => {
-  // Reference to the container of the chart
-  const containerRef = useRef<HTMLDivElement | null>(null);
+```ts
+// Append data to existing ones
+appendData(data: CandlData[]): void
+```
 
-  // Reference to the chart
-  const candlRef = useRef<Candl | null>(null);
+```ts
+// Clear data
+clearData(): void
+```
 
-  useEffect(() => {
-    if (containerRef.current) {
-      // Create the chart
-      candlRef.current = new Candl(containerRef.current);
+```ts
+// Set the last data of the serie
+// Typically, when you want to connect it
+// to a market API or simulate one
+setLastData(data: CandlData): void
+```
 
-      // Create a serie for 1M TimeFrame
-      const mySerie: CandlSerie = new CandlSerie(CandlTimeFrame.Time1Minute);
+```ts
+// Return the last data of the serie
+// Undefined if the serie is empty
+getLastData(): CandlData | undefined
+```
 
-      // Add mocked data with 10 000 candles
-      mySerie.setData(
-        CandlMock.generateMockData(CandlTimeFrame.Time1Minute, 10000)
-      );
+```ts
+// Return data at specified index
+getDataByIndex(index: number): CandlData
+```
 
-      // Add default 1M base views to the serie
-      mySerie.setViews(get1MBaseViews());
+```ts
+// Return data at specified timestamp
+// Undefined if not found.
+getDataByTimestamp(timestamp: number): CandlData | undefined
+```
 
-      // Add serie to Candl
-      candlRef.current.addSerie(CandlTimeFrame.Time1Minute, mySerie);
+```ts
+// Return the data count of the serie
+getDataCount(): number
+```
 
-      // Jump to the end of the chart
-      candlRef.current.setOffset({
-        x: candlRef.current.getLastCandleOffset(),
-        y: candlRef.current.getOffset().y,
-      });
+## Views
 
-      // Force update of the chart
-      candlRef.current.forceUpdate();
-    }
+CandlSerie also define the views of the serie.
 
-    return () => {
-      // Don't forget to clean the chart
-      if (candlRef.current != null) {
-        candlRef.current.clean();
-      }
-    };
-  }, []);
+It contain an array of CandlView.
 
-  return (
-    <div
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "100%",
-      }}
-      ref={containerRef}
-    />
-  );
-};
-export default CandlWrapper;
+A CandlView define the way Candl will render your data. See [CandlView](./candl_view.md) for more informations.
+
+```ts
+// Set the views of the serie
+setViews(views: CandlView[]): void
+```
+
+```ts
+// Get View at specific index
+getView(index: number): CandlView | undefined
+```
+
+```ts
+// Get the count of views
+getViewsCount(): number
+```
+
+```ts
+// Set the index of the active view
+setActiveView(index: number): void
+```
+
+```ts
+// Get the active view. If there is no active view, return the default view.
+getActiveView(): CandlView
+```
+
+```ts
+// Get the active view index
+getViewIndex(): number
+```
+
+## Others
+
+It also provide methods to get the id and the symbol of the serie.
+
+```ts
+// Get id of the serie
+getId(): CandlTimeFrame
+```
+
+```ts
+// Get the market symbol
+getSymbol(): string
 ```
