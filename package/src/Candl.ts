@@ -10,12 +10,14 @@ import {
   CandlOptionGeneral,
   CandlOptionGrid,
   CandlOptionInputs,
+  CandlOptionLineCursor,
   CandlOptionPriceLine,
   CandlOptionRenderArea,
   CandlOptionRenderCandle,
   CandlOptionRenderCommon,
   CandlOptionRenderLine,
   CandlOptionShow,
+  CandlOptionVolume,
   CandlOptionXAxisLabels,
   CandlOptionYAxis,
   DeepPartial,
@@ -1428,6 +1430,29 @@ export class Candl {
    */
   public setOptionsLine(options: DeepPartial<CandlOptionRenderLine>): void {
     this.options.lineRender = { ...this.options.lineRender, ...options };
+  }
+
+  /**
+   * Set line cursor options
+   * @param {CandlOptionLineCursor} options
+   */
+  public setOptionsLineCursor(
+    options: DeepPartial<CandlOptionLineCursor>
+  ): void {
+    this.options.lineCursor = { ...this.options.lineCursor, ...options };
+  }
+
+  /**
+   * Set volume options
+   * @param {CandlOptionVolume} options
+   */
+  public setOptionsVolume(options: DeepPartial<CandlOptionVolume>): void {
+    this.options.volume = {
+      ...this.options.volume,
+      ...options,
+      bearish: { ...this.options.volume.bearish, ...options.bearish },
+      bullish: { ...this.options.volume.bullish, ...options.bullish },
+    };
   }
 
   /**
