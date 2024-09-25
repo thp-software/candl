@@ -218,11 +218,16 @@ export abstract class CandlDraw {
     density: number
   ): void {
     CandlDraw.drawAreaContinue(context, position, density);
+    CandlDraw.drawAreaContinue(
+      context,
+      { x: position.x + 10, y: position.y },
+      density
+    );
     context.stroke();
 
     context.lineTo(
       CandlHelper.getPixelPerfectNumber(
-        CandlHelper.getValueWithDensity(position.x, density)
+        CandlHelper.getValueWithDensity(position.x + 10, density)
       ),
       CandlHelper.getPixelPerfectNumber(chartHeight)
     );
@@ -257,11 +262,11 @@ export abstract class CandlDraw {
 
     context.clearRect(
       CandlHelper.getPixelPerfectNumber(
-        CandlHelper.getValueWithDensity(position.x - 1, density)
+        CandlHelper.getValueWithDensity(position.x, density)
       ),
       CandlHelper.getPixelPerfectNumber(position.y),
       CandlHelper.getPixelPerfectNumber(
-        CandlHelper.getValueWithDensity(options.line.thickness + 1, density)
+        CandlHelper.getValueWithDensity(10 + options.line.thickness, density)
       ),
       CandlHelper.getPixelPerfectNumber(chartHeight)
     );
