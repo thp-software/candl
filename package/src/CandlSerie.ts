@@ -140,6 +140,8 @@ export class CandlSerie {
       this.viewIndex = 0;
     } else if (index >= this.views.length) {
       this.viewIndex = this.views.length - 1;
+    } else {
+      this.viewIndex = index;
     }
   }
 

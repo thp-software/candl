@@ -167,7 +167,6 @@ export class Candl {
 
   private resizeObserver = new ResizeObserver((entries) => {
     for (let entry of entries) {
-      console.log(entry.contentRect.width);
       this.onResize();
     }
   });
@@ -1171,13 +1170,13 @@ export class Candl {
 
       const previousZoom = activeSerie.getActiveView().zoomFactor;
 
-      activeSerie.setActiveView(
-        activeSerie.getViewIndex() + (event.deltaY < 0 ? 1 : -1)
-      );
-      activeSerie.setActiveView(
-        Math.min(activeSerie.getViewIndex(), activeSerie.getViewsCount() - 1)
-      );
-      activeSerie.setActiveView(Math.max(activeSerie.getViewIndex(), 0));
+      let newIndex = activeSerie.getViewIndex() + (event.deltaY < 0 ? 1 : -1);
+
+      newIndex = Math.min(newIndex, activeSerie.getViewsCount() - 1);
+
+      newIndex = Math.max(newIndex, 0);
+
+      activeSerie.setActiveView(newIndex);
 
       if (this.options.inputs.zoomAtCursor) {
         const newZoom = activeSerie.getActiveView().zoomFactor;
