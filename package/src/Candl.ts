@@ -483,8 +483,7 @@ export class Candl {
           this.offset.x / (this.candleWidth + this.candleSpacing) +
             this.gridCanvas.width /
               this.canvasDensity /
-              (this.candleWidth + this.candleSpacing) +
-            200
+              (this.candleWidth + this.candleSpacing)
         );
 
         if (this.firstCandleIndex < 0) {
