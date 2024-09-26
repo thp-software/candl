@@ -358,8 +358,14 @@ export class Candl {
       CandlDraw.clearCanvas(this.chartCanvas, this.chartCanvasContext);
 
       this.updateChart();
-      this.updateXLabels();
-      this.updateVolumes();
+
+      if (this.options.show.xLabels) {
+        this.updateXLabels();
+      }
+
+      if (this.options.show.volume) {
+        this.updateVolumes();
+      }
     }
   }
 
@@ -1357,15 +1363,15 @@ export class Candl {
       let y = this.chartCanvas.height / this.canvasDensity;
 
       if (this.options.show.yAxis) {
-        x -= this.options.yAxis.width * this.canvasDensity;
+        x -= this.options.yAxis.width / this.canvasDensity;
       }
 
       if (this.options.show.volume) {
-        y -= this.options.volume.height * this.canvasDensity;
+        y -= this.options.volume.height / this.canvasDensity;
       }
 
       if (this.options.show.xLabels) {
-        y -= this.options.xAxis.height * this.canvasDensity;
+        y -= this.options.xAxis.height / this.canvasDensity;
       }
 
       return { x, y };
