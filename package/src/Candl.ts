@@ -597,7 +597,15 @@ export class Candl {
     if (this.gridCanvasContext && this.gridCanvas) {
       const range = this.maxValue - this.minValue;
 
-      const roughStep = range / this.options.yAxis.targetSteps;
+      let roughStep;
+
+      if (this.options.yAxis.autoSteps) {
+        roughStep =
+          range / Math.floor(this.gridCanvas.height / this.canvasDensity / 100);
+      } else {
+        roughStep = range / this.options.yAxis.targetSteps;
+      }
+
       const stepMagnitude = Math.pow(10, Math.floor(Math.log10(roughStep)));
       const refinedStep = Math.ceil(roughStep / stepMagnitude) * stepMagnitude;
 

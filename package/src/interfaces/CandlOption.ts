@@ -57,7 +57,9 @@ export interface CandlOptionYAxis {
   labelColor: string;
   // Width of the area
   width: number;
-  // Target steps for y axis
+  // If true, number of steps will be based on the chart height
+  autoSteps: boolean;
+  // Target steps for y axis, only if autoSteps = false
   targetSteps: number;
 }
 

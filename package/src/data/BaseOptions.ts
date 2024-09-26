@@ -76,6 +76,7 @@ export const getBaseOptions = (): CandlOption => {
       labelFontSize: 14,
       labelColor: "#eee",
       width: 120,
+      autoSteps: false,
       targetSteps: 10,
     },
     xAxis: {
