@@ -1561,7 +1561,7 @@ export class Candl {
   }
 
   /**
-   * Set X label options
+   * Set xLabels
    * @param {CandlXLabelOptions[]} - array of CandlXLabelOptions
    */
   public setXLabels(xLabels: CandlXLabelOptions[]): void {
@@ -1572,6 +1572,28 @@ export class Candl {
       if (index) {
         this.xLabelOptions[index] = xLabels[i];
       }
+    }
+  }
+
+  /**
+   * Return the current xLabels
+   * @returns {CandlXLabelOptions} Array of CandlXLabelOptions
+   */
+  public getXLabels(): CandlXLabelOptions[] {
+    return this.xLabelOptions;
+  }
+
+  /**
+   * Set all xLabels style. It will override the style of all xLabels at once.
+   * @param {DeepPartial<CandlXLabelOptions>} options
+   */
+  public setXLabelsStyle(options: DeepPartial<CandlXLabelOptions>): void {
+    for (let i = 0; i < this.xLabelOptions.length; i++) {
+      this.xLabelOptions[i] = {
+        ...this.xLabelOptions[i],
+        ...options,
+        offset: { ...this.xLabelOptions[i].offset, ...options.offset },
+      };
     }
   }
 }
