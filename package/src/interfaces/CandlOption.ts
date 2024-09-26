@@ -57,6 +57,8 @@ export interface CandlOptionYAxis {
   labelColor: string;
   // Width of the area
   width: number;
+  // Target steps for y axis
+  targetSteps: number;
 }
 
 export interface CandlOptionXAxisLabels {
