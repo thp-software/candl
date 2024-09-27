@@ -99,6 +99,8 @@ export class Candl {
   private candleViewsStartOffset: CandlVector2;
   private candleViewsEndOffset: CandlVector2;
 
+  private onResizeCallback: ((size: CandlVector2) => void) | undefined;
+
   constructor(container: HTMLDivElement) {
     this.container = container;
     this.series = new Map<CandlTimeFrame, CandlSerie>();
@@ -114,7 +116,7 @@ export class Candl {
     this.bindEvents();
 
     // Force a first onResize
-    this.onResize();
+    this.onResizeInternal();
 
     this.updateInputCanvas();
   }
@@ -167,7 +169,7 @@ export class Candl {
 
   private resizeObserver = new ResizeObserver((entries) => {
     for (let entry of entries) {
-      this.onResize();
+      this.onResizeInternal();
     }
   });
 
@@ -197,7 +199,7 @@ export class Candl {
 
       // Other
       this.uiCanvas.removeEventListener("contextmenu", () => {});
-      window.removeEventListener("resize", this.onResize);
+      window.removeEventListener("resize", this.onResizeInternal);
 
       this.resizeObserver.unobserve(this.container);
     }
@@ -1234,16 +1236,11 @@ export class Candl {
    * For every window size event
    * TODO : move the bind to the parent container
    */
-  private onResize() {
+  private onResizeInternal() {
     if (this.gridCanvas && this.gridCanvasContext) {
       this.gridCanvas.width = this.gridCanvas.offsetWidth * this.canvasDensity;
       this.gridCanvas.height =
         this.gridCanvas.offsetHeight * this.canvasDensity;
-
-      // this.gridCanvasContext.scale(
-      //   1 / this.canvasDensity,
-      //   1 / this.canvasDensity
-      // );
     }
 
     if (this.chartCanvas && this.chartCanvasContext) {
@@ -1251,21 +1248,11 @@ export class Candl {
         this.chartCanvas.offsetWidth * this.canvasDensity;
       this.chartCanvas.height =
         this.chartCanvas.offsetHeight * this.canvasDensity;
-
-      // this.chartCanvasContext.scale(
-      //   1 / this.canvasDensity,
-      //   1 / this.canvasDensity
-      // );
     }
 
     if (this.uiCanvas && this.uiCanvasContext) {
       this.uiCanvas.width = this.uiCanvas.offsetWidth * this.canvasDensity;
       this.uiCanvas.height = this.uiCanvas.offsetHeight * this.canvasDensity;
-
-      // this.uiCanvasContext.scale(
-      //   1 / this.canvasDensity,
-      //   1 / this.canvasDensity
-      // );
     }
 
     if (this.inputCanvas && this.inputCanvasContext) {
@@ -1273,14 +1260,24 @@ export class Candl {
         this.inputCanvas.offsetWidth * this.canvasDensity;
       this.inputCanvas.height =
         this.inputCanvas.offsetHeight * this.canvasDensity;
-
-      // this.inputCanvasContext.scale(
-      //   1 / this.canvasDensity,
-      //   1 / this.canvasDensity
-      // );
     }
 
     this.update();
+
+    if (this.gridCanvas && this.onResizeCallback) {
+      this.onResizeCallback({
+        x: this.gridCanvas.offsetWidth,
+        y: this.gridCanvas.offsetHeight,
+      });
+    }
+  }
+
+  /**
+   * Set callback on canvas change
+   * @param callback - Triggered when Candl chart size has changed
+   */
+  public onResize(callback: (size: CandlVector2) => void) {
+    this.onResizeCallback = callback;
   }
 
   public getLastCandleOffset(): number {
@@ -1295,7 +1292,7 @@ export class Candl {
       if (this.gridCanvas) {
         const lastIndex = activeSerie.getDataCount() - 1;
         const xPosition = (this.candleWidth + this.candleSpacing) * lastIndex;
-        return xPosition - this.gridCanvas.width / this.canvasDensity + 200;
+        return xPosition - this.getCandleViewSize().x;
       }
     }
     return 0;
@@ -1344,8 +1341,8 @@ export class Candl {
       this.currentTimeFrame
     );
 
-    if (activeSerie) {
-      return -200 * activeSerie.getActiveView().zoomFactor;
+    if (this.gridCanvas && activeSerie) {
+      return -(this.gridCanvas.width / 10);
     }
     return 0;
   }
@@ -1359,7 +1356,8 @@ export class Candl {
       const lastIndex = activeSerie.getDataCount() - 1;
       return (
         (this.candleWidth + this.candleSpacing) * lastIndex -
-        (this.gridCanvas.width / this.canvasDensity - 200)
+        (this.gridCanvas.width / this.canvasDensity -
+          this.gridCanvas.width / 10)
       );
     }
     return 0;
